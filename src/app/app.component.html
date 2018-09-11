@@ -1,9 +1,39 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
-  <a class="navbar-brand" href="javascript:void(0)">PM</a>
+  <a class="navbar-brand" href="javascript:void(0)">{{title}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngIf="userConfig.isAuth()">
+        <a class="nav-item text-light" href="javascript:void(0)" (click)="userConfig.logout()">
+          Logout ({{userConfig.username}})</a>
+      </li>
+      <div class="input-group" *ngIf="!userConfig.isAuth()">
+        <input id="pmInputUsername" type="text" class="form-control" placeholder="Username" aria-label="Username"
+               (keyup)="inputUsernameChange($event)">
+        <div class="input-group-append">
+          <button class="btn btn-success" type="button" (click)="OnAuth()">Login</button>
+        </div>
+      </div>
+    </ul>
+  </div>
 </nav>
 
+<p class="text-center p-1 d-none">
+  <button class="btn btn-primary">Play btn-primary</button>
+  <button class="btn btn-secondary">Play btn-secondary</button>
+  <button class="btn btn-success">Play btn-success</button>
+  <button class="btn btn-warning">Play btn-warning</button>
+  <button class="btn btn-danger">Play btn-danger</button>
+  <button class="btn btn-info">Play btn-info</button>
+  <button class="btn btn-dark">Play btn-dark</button>
+  <button class="btn btn-light">Play btn-light</button>
+  <button class="btn btn-link">Play btn-link</button>
+</p>
 <router-outlet></router-outlet>

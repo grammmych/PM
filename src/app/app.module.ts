@@ -8,11 +8,13 @@ import { MainPageComponent } from './_components/main-page/main-page.component';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { AuthComponent } from './_components/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent
+    MainPageComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,

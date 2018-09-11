@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
+import {UserConfigService} from '../../_services/user-config.service';
 
 @Component({
   selector: 'app-main-page',
@@ -8,12 +9,9 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private msg: ToastrService) { }
+  constructor(private userConfig: UserConfigService) { }
 
   ngOnInit() {
-  }
-
-  onToastrShow(msgText: string = 'No text'): void {
-    this.msg.success(msgText);
+    this.userConfig.checkAuth();
   }
 }
