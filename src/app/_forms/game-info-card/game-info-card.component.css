@@ -1,0 +1,18 @@
+.gic {
+  margin-bottom: 10px; }
+  .gic:hover {
+    cursor: pointer;
+    border-color: #17a2b8; }
+
+.gic-header {
+  color: #FFF;
+  font-weight: bold;
+  background-color: #17a2b8; }
+
+.gic-body {
+  padding: 0; }
+  .gic-body img {
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 100%; }

@@ -1,0 +1,28 @@
+@import "../../colors";
+
+$gic-image-size: 100%;
+
+.gic {
+  margin-bottom: 10px;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $color-info;
+  }
+}
+.gic-header {
+  color: #FFF;
+  font-weight: bold;
+  background-color: $color-info;
+}
+.gic-body {
+  padding: 0;
+
+  img {
+    border: none;
+    padding: 0;
+    width: $gic-image-size;
+    height: $gic-image-size;
+  }
+}
+.gic-footer {}

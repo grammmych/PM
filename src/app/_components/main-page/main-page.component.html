@@ -1,8 +1,6 @@
-<div class="container bg-light">
-  1<br>
-  2<br>
-  3<br>
-  4<br>
-  5<br>
-  6<br>
+<div class="container top-menu-indent">
+  <div class="row justify-content-center">
+    <app-game-info-card *ngFor="let game of gamesList" [_gameData]="game"
+                        class="col-xl-3 col-md-4 col-sm-6"></app-game-info-card>
+  </div>
 </div>

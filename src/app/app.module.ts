@@ -9,12 +9,14 @@ import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { AuthComponent } from './_components/auth/auth.component';
+import { GameInfoCardComponent } from './_forms/game-info-card/game-info-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    AuthComponent
+    AuthComponent,
+    GameInfoCardComponent
   ],
   imports: [
     CommonModule,

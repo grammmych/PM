@@ -12,6 +12,12 @@ export class UserConfigService {
 
   constructor(private router: Router, private msg: MessageService) {
     this._user = null;
+
+    // Test data
+    this._user = {
+      name: 'SerYogA',
+      token: this.generateToken()
+    };
   }
 
   public isAuth(): boolean {
@@ -19,7 +25,13 @@ export class UserConfigService {
   }
 
   get username() {
+    if (!this.isAuth()) { return null; }
     return this._user.name;
+  }
+
+  get token() {
+    if (!this.isAuth()) { return null; }
+    return this._user.token;
   }
 
   public checkAuth(): void {
