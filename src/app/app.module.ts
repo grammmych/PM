@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { AuthComponent } from './_components/auth/auth.component';
 import { GameInfoCardComponent } from './_forms/game-info-card/game-info-card.component';
+import {WebsocketModule} from './WSModule';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { GameInfoCardComponent } from './_forms/game-info-card/game-info-card.co
     routingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    WebsocketModule.config({
+      url: 'ws://localhost:4200/ws'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
