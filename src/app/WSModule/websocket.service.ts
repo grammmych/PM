@@ -6,6 +6,7 @@ import {WebSocketSubject, WebSocketSubjectConfig} from 'rxjs/webSocket';
 import {share, distinctUntilChanged, takeWhile} from 'rxjs/operators';
 import {IWebsocketService, IWsMessage, WebSocketConfig} from './websocket.interfaces';
 import {config} from './websocket.config';
+import {MessageService} from '../_services/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
 
   public status: Observable<boolean>;
 
-  constructor(@Inject(config) private wsConfig: WebSocketConfig) {
+  constructor(@Inject(config) private wsConfig: WebSocketConfig, private MSG: MessageService) {
     this.wsMessages$ = new Subject<IWsMessage<any>>();
 
     this.reconnectInterval = wsConfig.reconnectInterval || 5000; // pause between connections
@@ -46,6 +47,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
       openObserver: {
         next: (event: Event) => {
           console.log('WS connected!');
+          MSG.onSuccess('WS connected!');
           this.connection$.next(true);
         }
       }
@@ -64,7 +66,10 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
         }
       });
     this.websocketSub = this.wsMessages$.subscribe(
-      null, (error: ErrorEvent) => console.error('WebSocket error!', error)
+      null, (error: ErrorEvent) => {
+        console.error('WebSocket error!', error);
+        this.MSG.onError('WebSocket error! ' + error);
+      }
     );
 
     this.connect();
@@ -87,6 +92,8 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
       (error: Event) => {
         if (!this.websocket$) {
           // run reconnect if errors
+          console.log('WS disconnect!');
+          this.MSG.onWarning('WS disconnected!');
           this.reconnect();
         }
       });

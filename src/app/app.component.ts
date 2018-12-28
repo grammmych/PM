@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {UserConfigService} from './_services/user-config.service';
 import * as $ from 'jquery';
+import {WebsocketService} from './WSModule';
+import {MessageService} from './_services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,11 @@ import * as $ from 'jquery';
 export class AppComponent {
   title = 'PM';
 
-  constructor(public userConfig: UserConfigService) {}
+  constructor(public userConfig: UserConfigService, private WS: WebsocketService, private MSG: MessageService) {
+    WS.on('pong').subscribe(data => {
+      MSG.onInfo('PONG');
+    });
+  }
 
   public OnAuth(): void {
     if (this.userConfig.authentication(this.getUsername())) {
@@ -23,8 +29,12 @@ export class AppComponent {
   }
 
   public inputUsernameChange(e: KeyboardEvent): void {
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
       this.OnAuth();
     }
+  }
+
+  public clickLogo(): void {
+    this.WS.send('ping', 'test');
   }
 }
