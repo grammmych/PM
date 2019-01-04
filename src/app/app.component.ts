@@ -12,11 +12,7 @@ import {MessageService} from './_services/message.service';
 export class AppComponent {
   title = 'PM';
 
-  constructor(public userConfig: UserConfigService, private WS: WebsocketService, private MSG: MessageService) {
-    WS.on('pong').subscribe(data => {
-      MSG.onInfo('PONG');
-    });
-  }
+  constructor(public userConfig: UserConfigService) {}
 
   public OnAuth(): void {
     if (this.userConfig.authentication(this.getUsername())) {
@@ -35,6 +31,6 @@ export class AppComponent {
   }
 
   public clickLogo(): void {
-    this.WS.send('ping', 'test');
+    console.log('Click LOGO');
   }
 }
