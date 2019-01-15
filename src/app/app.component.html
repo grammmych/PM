@@ -16,7 +16,9 @@
       </li>
       <div class="input-group" *ngIf="!userConfig.isAuth()">
         <input id="pmInputUsername" type="text" class="form-control" placeholder="Username" aria-label="Username"
-               (keyup)="inputUsernameChange($event)">
+               (keyup)="inputUsernameChange($event)" style="width: 100px;">
+        <input id="pmInputPassword" type="password" class="form-control" placeholder="Password" aria-label="Password"
+               (keyup)="inputUsernameChange($event)" style="width: 100px;">
         <div class="input-group-append">
           <button class="btn btn-success" type="button" (click)="OnAuth()">Login</button>
         </div>

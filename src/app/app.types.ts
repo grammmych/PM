@@ -1,4 +1,8 @@
 export interface IUserConfig {
-  token: string;
   name: string;
+}
+
+export interface IApiMessage {
+  result: boolean;
+  data: any;
 }

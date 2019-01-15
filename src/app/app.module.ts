@@ -11,6 +11,9 @@ import {ToastrModule} from 'ngx-toastr';
 import {AuthComponent} from './_components/auth/auth.component';
 import {GameInfoCardComponent} from './_forms/game-info-card/game-info-card.component';
 import {WebsocketModule} from './WSModule';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {UserConfigService} from './_services/user-config.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import {WebsocketModule} from './WSModule';
     GameInfoCardComponent
   ],
   imports: [
+    HttpClientModule,
+    FormsModule,
     CommonModule,
     BrowserModule,
     routingModule,
@@ -30,7 +35,9 @@ import {WebsocketModule} from './WSModule';
       url: 'ws://localhost:4200/ws'
     })
   ],
-  providers: [],
+  providers: [
+    UserConfigService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

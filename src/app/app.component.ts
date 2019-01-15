@@ -15,13 +15,17 @@ export class AppComponent {
   constructor(public userConfig: UserConfigService) {}
 
   public OnAuth(): void {
-    if (this.userConfig.authentication(this.getUsername())) {
+    if (this.userConfig.authentication(this.getUsername(), this.getPassword())) {
       this.userConfig.redirectTo('');
     }
   }
 
   private getUsername(): string {
     return $('#pmInputUsername').val().toString();
+  }
+
+  private getPassword(): string {
+    return $('#pmInputPassword').val().toString();
   }
 
   public inputUsernameChange(e: KeyboardEvent): void {

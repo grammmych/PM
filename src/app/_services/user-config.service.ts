@@ -1,23 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {IUserConfig} from '../app.types';
+import {IApiMessage, IUserConfig} from '../app.types';
 import {MessageService} from './message.service';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserConfigService {
 
-  private _user: IUserConfig|null;
+  private _user: IUserConfig | null;
 
-  constructor(private router: Router, private msg: MessageService) {
-    this._user = null;
+  constructor(private router: Router, private msg: MessageService, private http: HttpClient) {
+    this.initUserConfig();
+  }
 
-    // Test data
-    this._user = {
-      name: 'SerYogA',
-      token: this.generateToken()
-    };
+  private initUserConfig(): void {
+    this.http.get('api/get_user_config').subscribe((response: IApiMessage) => {
+      if (response.result) {
+        this._user = response.data;
+      }
+    });
   }
 
   public isAuth(): boolean {
@@ -25,45 +29,23 @@ export class UserConfigService {
   }
 
   get username() {
-    if (!this.isAuth()) { return null; }
+    if (!this.isAuth()) {
+      return null;
+    }
     return this._user.name;
   }
 
-  get token() {
-    if (!this.isAuth()) { return null; }
-    return this._user.token;
+  public checkAuth(): boolean {
+    return this.isAuth();
   }
 
-  public checkAuth(): void {
-    if (!this.isAuth()) {
-      this.router.navigate(['auth']);
-    }
-  }
-
-  public authentication(username: string): boolean {
-    if (username === 'undefined' || username.trim() === '') {
-      this.msg.onError('Incorrect `Username`');
-      return false;
-    }
-    this._user = {
-      token: this.generateToken(),
-      name: username
-    };
-    return true;
+  public authentication(username: string, passwd: string): Observable<{}> {
+    return this.http.post('api/auth', {});
   }
 
   public logout(): void {
     this._user = null;
-    this.redirectTo('auth');
-  }
-
-  private generateToken(): string {
-    let result = '';
-    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for (let i = 32; i > 0; --i) {
-      result += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return result;
+    this.redirectTo('/');
   }
 
   public redirectTo(ulr: string): void {
