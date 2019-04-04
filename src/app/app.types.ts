@@ -3,6 +3,7 @@ export interface IUserConfig {
 }
 
 export interface IApiMessage {
-  result: boolean;
-  data: any;
+  error: boolean;
+  data?: any;
+  msg?: string;
 }

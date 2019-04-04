@@ -10,16 +10,17 @@ import {HttpClient} from '@angular/common/http';
 })
 export class UserConfigService {
 
-  private _user: IUserConfig | null;
+  private _user: IUserConfig | null = null;
 
   constructor(private router: Router, private msg: MessageService, private http: HttpClient) {
     this.initUserConfig();
   }
 
   private initUserConfig(): void {
-    this.http.get('api/get_user_config').subscribe((response: IApiMessage) => {
-      if (response.result) {
-        this._user = response.data;
+
+    this.http.get('api/auth/get_user_config').subscribe((response: IApiMessage) => {
+      if (!response.error) {
+        this._user = (this.checkUserConfigData(response.data)) ? response.data : null;
       }
     });
   }
@@ -51,5 +52,13 @@ export class UserConfigService {
   public redirectTo(ulr: string): void {
     const arrUrl = ulr.split('/');
     this.router.navigate(arrUrl);
+  }
+
+  private checkUserConfigData(userConfig: IUserConfig): boolean {
+    let r = true;
+    if (!('name' in userConfig)) {
+      r = false;
+    }
+    return r;
   }
 }

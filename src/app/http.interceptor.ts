@@ -24,14 +24,14 @@ export class MyInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap((response: HttpResponse<any>) => {
         if (response.type === 4) {
-          if ('result' in response.body) {
-            if (!response.body['result']) {
-              this.msgService.onError(response.body['data']['error']);
+          if ('error' in response.body) {
+            if (response.body['error']) {
+              this.msgService.onError(response.body['msg']);
             }
           } else {
             console.log('Incorrect Response: ', response.body);
             // response.body = <IApiMessage>{
-            //   result: false,
+            //   error: false,
             //   data: {error: 'API Error: Incorrect response'}
             // };
           }
