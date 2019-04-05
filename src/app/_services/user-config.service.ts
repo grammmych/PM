@@ -16,7 +16,7 @@ export class UserConfigService {
     this.initUserConfig();
   }
 
-  private initUserConfig(): void {
+  public initUserConfig(): void {
 
     this.http.get('api/auth/get_user_config').subscribe((response: IApiMessage) => {
       if (!response.error) {
@@ -41,7 +41,7 @@ export class UserConfigService {
   }
 
   public authentication(username: string, passwd: string): Observable<{}> {
-    return this.http.post('api/auth', {});
+    return this.http.post('api/auth/login', { username: username, password: passwd });
   }
 
   public logout(): void {
@@ -56,6 +56,9 @@ export class UserConfigService {
 
   private checkUserConfigData(userConfig: IUserConfig): boolean {
     let r = true;
+    if (userConfig == null) {
+      return false;
+    }
     if (!('name' in userConfig)) {
       r = false;
     }

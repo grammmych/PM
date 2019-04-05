@@ -3,6 +3,7 @@ import {UserConfigService} from './_services/user-config.service';
 import * as $ from 'jquery';
 import {WebsocketService} from './WSModule';
 import {MessageService} from './_services/message.service';
+import {IApiMessage} from './app.types';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,15 @@ export class AppComponent {
   constructor(public userConfig: UserConfigService) {}
 
   public OnAuth(): void {
-    if (this.userConfig.authentication(this.getUsername(), this.getPassword())) {
-      this.userConfig.redirectTo('');
-    }
+    this.userConfig.authentication(this.getUsername(), this.getPassword()).subscribe(
+      (response: IApiMessage) => {
+        console.log('Response: ', response);
+        if (!response.error) {
+          this.userConfig.initUserConfig();
+          this.userConfig.redirectTo('');
+        }
+      }
+    );
   }
 
   private getUsername(): string {

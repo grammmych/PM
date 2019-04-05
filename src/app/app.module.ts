@@ -11,9 +11,10 @@ import {ToastrModule} from 'ngx-toastr';
 import {AuthComponent} from './_components/auth/auth.component';
 import {GameInfoCardComponent} from './_forms/game-info-card/game-info-card.component';
 import {WebsocketModule} from './WSModule';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {UserConfigService} from './_services/user-config.service';
+import {MyInterceptor} from './http.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,12 +31,15 @@ import {UserConfigService} from './_services/user-config.service';
     routingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center'
+    }),
     WebsocketModule.config({
       url: 'ws://localhost:4200/ws'
     })
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true},
     UserConfigService
   ],
   bootstrap: [AppComponent]
