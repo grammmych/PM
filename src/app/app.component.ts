@@ -12,10 +12,12 @@ import {IApiMessage} from './app.types';
 })
 export class AppComponent {
   title = 'PM';
+  is_log_in_out = false;
 
   constructor(public userConfig: UserConfigService) {}
 
-  public OnAuth(): void {
+  public OnLogin(): void {
+    this.is_log_in_out = true;
     this.userConfig.authentication(this.getUsername(), this.getPassword()).subscribe(
       (response: IApiMessage) => {
         console.log('Response: ', response);
@@ -23,8 +25,20 @@ export class AppComponent {
           this.userConfig.initUserConfig();
           this.userConfig.redirectTo('');
         }
+        this.is_log_in_out = false;
       }
     );
+  }
+
+  public OnLogout(): void {
+    this.is_log_in_out = true;
+    this.userConfig.logout().subscribe((response: IApiMessage) => {
+      if (!response.error) {
+        this.userConfig.initUserConfig();
+        this.userConfig.redirectTo('/');
+      }
+      this.is_log_in_out = false;
+    });
   }
 
   private getUsername(): string {
@@ -36,8 +50,8 @@ export class AppComponent {
   }
 
   public inputUsernameChange(e: KeyboardEvent): void {
-    if (e.keyCode === 13) {
-      this.OnAuth();
+    if (e.key === 'Enter') {
+      this.OnLogin();
     }
   }
 

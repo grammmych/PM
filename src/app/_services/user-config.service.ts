@@ -44,9 +44,8 @@ export class UserConfigService {
     return this.http.post('api/auth/login', { username: username, password: passwd });
   }
 
-  public logout(): void {
-    this._user = null;
-    this.redirectTo('/');
+  public logout(): Observable<{}> {
+    return this.http.get('api/auth/logout');
   }
 
   public redirectTo(ulr: string): void {
