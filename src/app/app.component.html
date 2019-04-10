@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-secondary fixed-top">
-  <a class="navbar-brand" href="javascript:void(0)" (click)="clickLogo()">{{title}}</a>
+  <a class="navbar-brand" href="javascript:void(0)" routerLink="/">{{title}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,15 @@
                (keyup)="inputUsernameChange($event)" style="width: 100px;">
         <div class="input-group-append">
           <button class="btn btn-success" type="button" (click)="OnLogin()" [disabled]="is_log_in_out">
-            Login</button>
+            Login
+          </button>
+          <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="javascript:void(0)" routerLink="/registration">Registration</a>
+          </div>
         </div>
       </div>
     </ul>

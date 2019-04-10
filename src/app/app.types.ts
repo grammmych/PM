@@ -7,3 +7,9 @@ export interface IApiMessage {
   data?: any;
   msg?: string;
 }
+
+export interface IUserRegistrationData {
+  login: string;
+  email: string;
+  passwd?: string;
+}

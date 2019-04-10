@@ -58,4 +58,18 @@ export class AppComponent {
   public clickLogo(): void {
     console.log('Click LOGO');
   }
+
+  public OnRegistration(): void {
+    this.userConfig.registration({
+      login: 'seryoga',
+      email: 'seryoga@gmail.com'
+    }).subscribe(
+      (response: IApiMessage) => {
+        console.log('RegResp: ', response);
+        if (!response.error) {
+          console.log('RegResult: OK!');
+        }
+      }
+    );
+  }
 }

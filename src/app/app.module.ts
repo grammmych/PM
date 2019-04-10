@@ -15,13 +15,15 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import {FormsModule} from '@angular/forms';
 import {UserConfigService} from './_services/user-config.service';
 import {MyInterceptor} from './http.interceptor';
+import { RegistrationComponent } from './_components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     AuthComponent,
-    GameInfoCardComponent
+    GameInfoCardComponent,
+    RegistrationComponent
   ],
   imports: [
     HttpClientModule,

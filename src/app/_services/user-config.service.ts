@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {IApiMessage, IUserConfig} from '../app.types';
+import {IApiMessage, IUserConfig, IUserRegistrationData} from '../app.types';
 import {MessageService} from './message.service';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -62,5 +62,9 @@ export class UserConfigService {
       r = false;
     }
     return r;
+  }
+
+  public registration(user_data: IUserRegistrationData): Observable<IApiMessage> {
+    return this.http.post<IApiMessage>('api/auth/registration', user_data);
   }
 }
