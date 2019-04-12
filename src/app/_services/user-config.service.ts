@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class UserConfigService {
 
   private _user: IUserConfig | null = null;
+  public isAuthDialog = false;
 
   constructor(private router: Router, private msg: MessageService, private http: HttpClient) {
     this.initUserConfig();

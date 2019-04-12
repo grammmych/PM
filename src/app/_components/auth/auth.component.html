@@ -1,19 +1,47 @@
-<div class="container-fluid">
-  <div class="row justify-content-center mt-3">
-    <div class="col-lg-4 col-md-6">
-      <h3 class="text-center">You are't authorized!</h3>
-      <div class="card d-none">
-        <div class="card-header">Authorization</div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="pmInputUsername">Username</label>
-            <input type="text" class="form-control form-control-sm" id="pmInputUsername" placeholder="Enter username">
-          </div>
-        </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-block btn-outline-primary btn-sm" (click)="OnAuth()">Login</button>
-        </div>
-      </div>
+<div class="card fixed-top top-menu-indent authRegWindow" [class.d-none]="!userConfig.isAuthDialog">
+  <div class="card-header text-center">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item w-50">
+        <a class="nav-link text-info" href="javascript:void(0)" [class.active]="!is_registration"
+           (click)="is_registration=false">
+          Sign In</a>
+      </li>
+      <li class="nav-item w-50">
+        <a class="nav-link text-info" href="javascript:void(0)" [class.active]="is_registration"
+           (click)="is_registration=true">
+          Sign Up</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="pmInputUsername">Username</label>
+      <input type="text" class="form-control form-control-sm" id="pmInputUsername" placeholder="Enter username"
+             [(ngModel)]="auth_data.username">
+    </div>
+    <div class="form-group" *ngIf="!is_registration">
+      <label for="pmInputPassword">Password</label>
+      <input type="password" class="form-control form-control-sm" id="pmInputPassword" placeholder="Enter password"
+             [(ngModel)]="auth_data.password">
+    </div>
+    <div class="form-group" *ngIf="is_registration">
+      <label for="pmInputEmail">E-mail</label>
+      <input type="email" class="form-control form-control-sm" id="pmInputEmail" placeholder="Enter your e-mail"
+             [(ngModel)]="auth_data.email">
     </div>
   </div>
+  <div class="card-footer" *ngIf="!is_registration">
+    <button type="button" class="btn btn-block btn-outline-info btn-sm" (click)="OnLogin()">Login</button>
+    <button type="button" class="btn btn-block btn-outline-danger btn-sm" (click)="userConfig.isAuthDialog=false">
+      Cancel
+    </button>
+  </div>
+  <div class="card-footer" *ngIf="is_registration">
+    <button type="button" class="btn btn-block btn-outline-info btn-sm" (click)="OnRegistration()">Register</button>
+    <button type="button" class="btn btn-block btn-outline-danger btn-sm" (click)="userConfig.isAuthDialog=false">
+      Cancel
+    </button>
+  </div>
 </div>
+<div class="modal-backdrop show" [class.d-none]="!userConfig.isAuthDialog"
+     (click)="userConfig.isAuthDialog=false"></div>

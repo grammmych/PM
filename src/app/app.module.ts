@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 import {UserConfigService} from './_services/user-config.service';
 import {MyInterceptor} from './http.interceptor';
 import { RegistrationComponent } from './_components/registration/registration.component';
+import { ModalDialogComponent } from './_forms/modal-dialog/modal-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegistrationComponent } from './_components/registration/registration.c
     MainPageComponent,
     AuthComponent,
     GameInfoCardComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ModalDialogComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,0 +1,9 @@
+@import "../../app.component";
+
+.authRegWindow {
+  width: 100%;
+  max-width: 300px;
+  position: fixed;
+  margin: 0 auto;
+  z-index: 1050;
+}

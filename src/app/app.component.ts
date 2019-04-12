@@ -12,64 +12,25 @@ import {IApiMessage} from './app.types';
 })
 export class AppComponent {
   title = 'PM';
-  is_log_in_out = false;
 
-  constructor(public userConfig: UserConfigService) {}
-
-  public OnLogin(): void {
-    this.is_log_in_out = true;
-    this.userConfig.authentication(this.getUsername(), this.getPassword()).subscribe(
-      (response: IApiMessage) => {
-        console.log('Response: ', response);
-        if (!response.error) {
-          this.userConfig.initUserConfig();
-          this.userConfig.redirectTo('');
-        }
-        this.is_log_in_out = false;
-      }
-    );
-  }
-
-  public OnLogout(): void {
-    this.is_log_in_out = true;
-    this.userConfig.logout().subscribe((response: IApiMessage) => {
-      if (!response.error) {
-        this.userConfig.initUserConfig();
-        this.userConfig.redirectTo('/');
-      }
-      this.is_log_in_out = false;
-    });
-  }
-
-  private getUsername(): string {
-    return $('#pmInputUsername').val().toString();
-  }
-
-  private getPassword(): string {
-    return $('#pmInputPassword').val().toString();
-  }
-
-  public inputUsernameChange(e: KeyboardEvent): void {
-    if (e.key === 'Enter') {
-      this.OnLogin();
-    }
+  constructor(public userConfig: UserConfigService, private msgService: MessageService) {
   }
 
   public clickLogo(): void {
     console.log('Click LOGO');
   }
 
-  public OnRegistration(): void {
-    this.userConfig.registration({
-      login: 'seryoga',
-      email: 'seryoga@gmail.com'
-    }).subscribe(
-      (response: IApiMessage) => {
-        console.log('RegResp: ', response);
+  public OnLogInOut(): void {
+    if (this.userConfig.isAuth()) { // LogOut
+      this.userConfig.logout().subscribe((response: IApiMessage) => {
         if (!response.error) {
-          console.log('RegResult: OK!');
+          this.userConfig.initUserConfig();
+          this.userConfig.redirectTo('/');
+          this.msgService.onInfo('Logout Success');
         }
-      }
-    );
+      });
+    } else {                        // LogIn
+      this.userConfig.isAuthDialog = true;
+    }
   }
 }
