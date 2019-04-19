@@ -14,20 +14,20 @@
     </ul>
   </div>
   <div class="card-body">
-    <div class="form-group">
+    <div class="form-group" *ngIf="is_registration">
       <label for="pmInputUsername">Username</label>
       <input type="text" class="form-control form-control-sm" id="pmInputUsername" placeholder="Enter username"
              [(ngModel)]="auth_data.username">
+    </div>
+    <div class="form-group">
+      <label for="pmInputEmail">E-mail</label>
+      <input type="email" class="form-control form-control-sm" id="pmInputEmail" placeholder="Enter your e-mail"
+             [(ngModel)]="auth_data.email">
     </div>
     <div class="form-group" *ngIf="!is_registration">
       <label for="pmInputPassword">Password</label>
       <input type="password" class="form-control form-control-sm" id="pmInputPassword" placeholder="Enter password"
              [(ngModel)]="auth_data.password">
-    </div>
-    <div class="form-group" *ngIf="is_registration">
-      <label for="pmInputEmail">E-mail</label>
-      <input type="email" class="form-control form-control-sm" id="pmInputEmail" placeholder="Enter your e-mail"
-             [(ngModel)]="auth_data.email">
     </div>
   </div>
   <div class="card-footer" *ngIf="!is_registration">

@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
 
   public OnLogin(): void {
     this.is_log_in_out = true;
-    this.userConfig.authentication(this.auth_data.username, this.auth_data.password).subscribe(
+    this.userConfig.authentication(this.auth_data.email, this.auth_data.password).subscribe(
       (response: IApiMessage) => {
         if (!response.error) {
           this.userConfig.initUserConfig();
@@ -41,8 +41,8 @@ export class AuthComponent implements OnInit {
 
   public OnRegistration(): void {
     this.userConfig.registration({
-      login: 'seryoga',
-      email: 'seryoga@gmail.com'
+      login: this.auth_data.username,
+      email: this.auth_data.email
     }).subscribe(
       (response: IApiMessage) => {
         console.log('RegResp: ', response);
@@ -50,7 +50,7 @@ export class AuthComponent implements OnInit {
           this.is_registration = false;
           this.clearAuthData();
           this.userConfig.isAuthDialog = false;
-          this.msgService.onSuccess('RegResult: OK!');
+          this.msgService.onInfo('Check your E-mail an confirm registration');
         }
       }
     );
